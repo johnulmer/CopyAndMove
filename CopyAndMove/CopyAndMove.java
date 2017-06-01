@@ -1,8 +1,11 @@
 package cmdCommands;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.nio.file.Files;
 
 public class CopyAndMove {
 	
@@ -31,11 +34,18 @@ public class CopyAndMove {
 			f.close();
 			return data;
     }
+    
+    public static void moveChars (byte[] bs, String removeFilePath, String newFilePath) throws Exception  {
+    	writeChars(bs, newFilePath);
+		File f = new File(removeFilePath);
+    	f.delete();
+    }
 
 	public static void main(String[] args) {
 		if (args.length == 2) {
 		try {
-			writeChars(readChars(args[0]), args[1]);
+			//writeChars(readChars(args[0]), args[1]);
+			moveChars(readChars(args[0]), args[0], args[1]);
 		} catch (Exception ex) {
 			System.out.println("file access: " + ex.toString());
 		}
